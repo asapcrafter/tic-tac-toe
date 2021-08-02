@@ -1,0 +1,7 @@
+var gameboard = {
+
+};
+
+var player = {
+
+};
