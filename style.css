@@ -60,12 +60,16 @@ h3 {
 }
 
 .stats {
-    background-color: var(--light-gray);
-    width: 300px;
-    height: 100%;
+    background-color: #ade4ffe3;
+    width: 200px;
+    height: 85%;
     margin-right: 20px;
+    margin-top: 55px;
     justify-self: right;
-    margin-top: 15px;
+    display: grid;
+    grid-template-rows: repeat(4, 1fr);
+    box-shadow: 0 3px 5px rgb(185, 185, 185);
+    border: rgb(22, 22, 22) solid 0.2px;
 }
 
 .square {
@@ -86,4 +90,49 @@ h3 {
 
 .square:active {
     transform: translateY(2px);
+}
+
+#player-info {
+    width: 100%;
+    height: 50px;
+    margin-top: 50px;
+}
+
+p {
+    width: 200px;
+    margin-left: 30px;
+    font-size: 20px;
+}
+
+#reset {
+    height: 30px;
+    width: 100px;
+    margin-left: 50px;
+    grid-row: 4/5;
+    box-shadow: 0 3px 5px rgb(185, 185, 185);
+    border-radius: 3.5px;
+    border: black solid 0.5px;
+    background-color: var(--dark-gray);
+}
+
+#reset:hover {
+    opacity: 0.7;
+}
+
+#reset:active {
+    transform: translateY(1px);
+}
+
+.result {
+    font-size: 20px;
+    margin-left: 15px;
+    margin-top: 20px;
+    color: green;
+}
+
+.turn {
+    font-size: 20px;
+    margin-left: 25px;
+    margin-top: 40px;
+    color: rgb(255, 83, 83);
 }

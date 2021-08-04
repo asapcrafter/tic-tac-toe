@@ -7,7 +7,7 @@ const Square = (() => {
         const checkStatus = () => status;
         
         const playTurn = (playerTurn) => {
-            // if (status !== '') return;
+            if (status !== '') return;
             if (disableButtons == true) return;
             if (playerTurn == 'X') status = "X";
             if (playerTurn == 'O') status = "O";
@@ -18,18 +18,24 @@ const Square = (() => {
         const changeTurn = () => {
             playerTurn == 'X' ? playerTurn = 'O' : playerTurn = 'X';
         };
-        function checkWin(playerTurn) {
+        const checkWin = playerTurn => {
             if (playerTurn == "X" && checkCombinations("X") == true ) {
-                console.log("Player X has won");
+                document.querySelector(".result").innerHTML = "Player two has won";
+                console.log("X has won")
                 disableButtons = true;
             };
             if (playerTurn == "O" && checkCombinations("O") == true) {
-                console.log("Player O has won")
+                cdocument.querySelector(".result").innerHTML = "Player one has won";
+                console.log("O has won")
                 disableButtons = true;
             };
+            checkCombinations();
         };
         return {checkStatus, checkStatus, playTurn, status}
     };  
+    const resetBoard = () => {
+        location.reload();
+    };
     var One = Square();
     var Two = Square();
     var Three = Square();
@@ -39,19 +45,29 @@ const Square = (() => {
     var Seven = Square();
     var Eight = Square();
     var Nine = Square();
-    return{One, Two, Three, Four, Five, Six, Seven, Eight, Nine};
+    return{resetBoard, One, Two, Three, Four, Five, Six, Seven, Eight, Nine};
 })();
 
 //Checks for all possible winning combinations in the gameboard
 function checkCombinations(team) {
-    return ((team == Square.One.checkStatus() && team == Square.Two.checkStatus() && team == Square.Three.checkStatus())
+    if ((team == Square.One.checkStatus() && team == Square.Two.checkStatus() && team == Square.Three.checkStatus())
         || (team == Square.Four.checkStatus() && team == Square.Five.checkStatus() && team == Square.Six.checkStatus())
         || (team == Square.Seven.checkStatus() && team == Square.Eight.checkStatus() && team == Square.Nine.checkStatus())
         || (team == Square.One.checkStatus() && team == Square.Four.checkStatus() && team == Square.Seven.checkStatus())
         || (team == Square.Two.checkStatus() && team == Square.Five.checkStatus() && team == Square.Eight.checkStatus())
         || (team == Square.Three.checkStatus() && team == Square.Six.checkStatus() && team == Square.Nine.checkStatus())
         || (team == Square.One.checkStatus() && team == Square.Five.checkStatus() && team == Square.Nine.checkStatus())
-        || (team == Square.Three.checkStatus() && team == Square.Five.checkStatus() && team == Square.Seven.checkStatus()));
+        || (team == Square.Three.checkStatus() && team == Square.Five.checkStatus() && team == Square.Seven.checkStatus()))
+        return true;
+    if (checkTie()) {
+        document.querySelector(".result").innerHTML = "The game is a draw!";
+    }
+};
+
+function checkTie() {
+    return ('' !== Square.One.checkStatus() && '' !== Square.Two.checkStatus() && '' !== Square.Three.checkStatus() 
+        && '' !== Square.Four.checkStatus() && '' !== Square.Five.checkStatus() && '' !== Square.Six.checkStatus()
+        && '' !== Square.Seven.checkStatus() && '' !== Square.Eight.checkStatus() && '' !== Square.Nine.checkStatus())
 };
 
 
@@ -74,6 +90,8 @@ var s8 = document.querySelector("#square-8")
     s8.onclick = () => Square.Eight.playTurn(playerTurn);   
 var s9 = document.querySelector("#square-9")
     s9.onclick = () => Square.Nine.playTurn(playerTurn);   
+var btnReset = document.querySelector("#reset")
+    btnReset.onclick = () => Square.resetBoard();
 
 //Updates tic-tac-toe square divs
 function updateDisplay() {
@@ -86,6 +104,13 @@ function updateDisplay() {
     s7.innerHTML = Square.Seven.checkStatus();
     s8.innerHTML = Square.Eight.checkStatus();
     s9.innerHTML = Square.Nine.checkStatus();
+
+    if (playerTurn == "X") {
+        document.querySelector(".turn").innerHTML = "Turn: Player Two"
+    };
+    if (playerTurn == "O") {
+        document.querySelector(".turn").innerHTML = "Turn: Player One";
+    };
 };
 
 
