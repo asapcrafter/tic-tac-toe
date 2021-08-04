@@ -1,27 +1,34 @@
-var playerTurn = 'x'
+var playerTurn = "X"
+var disableButtons = false
 
 const Square = (() => {
     const Square = () => {
         var status = '';
-        
         const checkStatus = () => status;
         
         const playTurn = (playerTurn) => {
             // if (status !== '') return;
-            if (playerTurn == 'x') status = "X";
-            if (playerTurn == 'o') status = "O";
+            if (disableButtons == true) return;
+            if (playerTurn == 'X') status = "X";
+            if (playerTurn == 'O') status = "O";
             updateDisplay();
+            checkWin(playerTurn);
             changeTurn();
         };
-
-        // const playX = () => status = "X";
-        // const playO = () => status = "O";
-        const playNone = () => status = '';
-
         const changeTurn = () => {
-            playerTurn == 'x' ? playerTurn = 'o' : playerTurn = 'x';
+            playerTurn == 'X' ? playerTurn = 'O' : playerTurn = 'X';
         };
-        return {checkStatus, checkStatus, playTurn}
+        function checkWin(playerTurn) {
+            if (playerTurn == "X" && checkCombinations("X") == true ) {
+                console.log("Player X has won");
+                disableButtons = true;
+            };
+            if (playerTurn == "O" && checkCombinations("O") == true) {
+                console.log("Player O has won")
+                disableButtons = true;
+            };
+        };
+        return {checkStatus, checkStatus, playTurn, status}
     };  
     var One = Square();
     var Two = Square();
@@ -34,6 +41,19 @@ const Square = (() => {
     var Nine = Square();
     return{One, Two, Three, Four, Five, Six, Seven, Eight, Nine};
 })();
+
+//Checks for all possible winning combinations in the gameboard
+function checkCombinations(team) {
+    return ((team == Square.One.checkStatus() && team == Square.Two.checkStatus() && team == Square.Three.checkStatus())
+        || (team == Square.Four.checkStatus() && team == Square.Five.checkStatus() && team == Square.Six.checkStatus())
+        || (team == Square.Seven.checkStatus() && team == Square.Eight.checkStatus() && team == Square.Nine.checkStatus())
+        || (team == Square.One.checkStatus() && team == Square.Four.checkStatus() && team == Square.Seven.checkStatus())
+        || (team == Square.Two.checkStatus() && team == Square.Five.checkStatus() && team == Square.Eight.checkStatus())
+        || (team == Square.Three.checkStatus() && team == Square.Six.checkStatus() && team == Square.Nine.checkStatus())
+        || (team == Square.One.checkStatus() && team == Square.Five.checkStatus() && team == Square.Nine.checkStatus())
+        || (team == Square.Three.checkStatus() && team == Square.Five.checkStatus() && team == Square.Seven.checkStatus()));
+};
+
 
 //Event listener for each square
 var s1 = document.querySelector("#square-1")
@@ -55,6 +75,7 @@ var s8 = document.querySelector("#square-8")
 var s9 = document.querySelector("#square-9")
     s9.onclick = () => Square.Nine.playTurn(playerTurn);   
 
+//Updates tic-tac-toe square divs
 function updateDisplay() {
     s1.innerHTML = Square.One.checkStatus();
     s2.innerHTML = Square.Two.checkStatus();
@@ -68,16 +89,7 @@ function updateDisplay() {
 };
 
 
-var Player = (team) => {
-    const playTeam = team => {
-        if (team == 'x') {playX()};
-        if (team == 'o') {playO()};
-    }
-    return {playTeam}
-}
 
-const playerOne = Player('x')
-playerOne.playTeam()
 
 /*
 Gameboard object has 9 squares
