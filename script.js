@@ -25,7 +25,7 @@ const Square = (() => {
                 disableButtons = true;
             };
             if (playerTurn == "O" && checkCombinations("O") == true) {
-                cdocument.querySelector(".result").innerHTML = "Player one has won";
+                document.querySelector(".result").innerHTML = "Player one has won";
                 console.log("O has won")
                 disableButtons = true;
             };
