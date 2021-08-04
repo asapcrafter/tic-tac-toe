@@ -11,8 +11,8 @@ const Square = (() => {
             if (disableButtons == true) return;
             if (playerTurn == 'X') status = "X";
             if (playerTurn == 'O') status = "O";
+            if (checkWin(playerTurn)) return;
             updateDisplay();
-            checkWin(playerTurn);
             changeTurn();
         };
         const changeTurn = () => {
@@ -23,13 +23,11 @@ const Square = (() => {
                 document.querySelector(".result").innerHTML = "Player two has won";
                 console.log("X has won")
                 disableButtons = true;
-            };
-            if (playerTurn == "O" && checkCombinations("O") == true) {
+            } else if (playerTurn == "O" && checkCombinations("O") == true) {
                 document.querySelector(".result").innerHTML = "Player one has won";
                 console.log("O has won")
                 disableButtons = true;
-            };
-            checkCombinations();
+            } else checkCombinations();
         };
         return {checkStatus, checkStatus, playTurn, status}
     };  
@@ -50,6 +48,7 @@ const Square = (() => {
 
 //Checks for all possible winning combinations in the gameboard
 function checkCombinations(team) {
+    disableTie = false
     if ((team == Square.One.checkStatus() && team == Square.Two.checkStatus() && team == Square.Three.checkStatus())
         || (team == Square.Four.checkStatus() && team == Square.Five.checkStatus() && team == Square.Six.checkStatus())
         || (team == Square.Seven.checkStatus() && team == Square.Eight.checkStatus() && team == Square.Nine.checkStatus())
@@ -57,11 +56,13 @@ function checkCombinations(team) {
         || (team == Square.Two.checkStatus() && team == Square.Five.checkStatus() && team == Square.Eight.checkStatus())
         || (team == Square.Three.checkStatus() && team == Square.Six.checkStatus() && team == Square.Nine.checkStatus())
         || (team == Square.One.checkStatus() && team == Square.Five.checkStatus() && team == Square.Nine.checkStatus())
-        || (team == Square.Three.checkStatus() && team == Square.Five.checkStatus() && team == Square.Seven.checkStatus()))
+        || (team == Square.Three.checkStatus() && team == Square.Five.checkStatus() && team == Square.Seven.checkStatus())) {
+        disableTie = true;
         return true;
-    if (checkTie()) {
+    }  
+    if (checkTie() && disableTie == false) {
         document.querySelector(".result").innerHTML = "The game is a draw!";
-    }
+    };  
 };
 
 function checkTie() {
