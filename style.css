@@ -21,7 +21,7 @@ body {
     /* justify-content: center; */
     justify-items: center;
     /* background-color: var(--soft-lavender); */
-    background-image: url(https://asapcrafter.github.io/tic-tac-toe/img/audience.jpg);
+    background-image: url(../img/audience.jpg);
     background-size: cover;
     font-family: "Raleway", sans-serif;
     font-size: 15px;
