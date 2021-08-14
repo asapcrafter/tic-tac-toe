@@ -20,7 +20,9 @@ body {
     display: grid;
     /* justify-content: center; */
     justify-items: center;
-    background-color: var(--soft-lavender);
+    /* background-color: var(--soft-lavender); */
+    background-image: url(../img/audience.jpg);
+    background-size: cover;
     font-family: "Raleway", sans-serif;
     font-size: 15px;
     line-height: 1.25;
@@ -28,14 +30,16 @@ body {
 }
 
 h3 {
-    width: 1000px;
+    width: 1100px;
     height: 60px;
-    background-color: var(--light-gray);
+    background-color: var(--light-gray) ;
+    opacity: 0.8;
     margin: 40px;
     padding: 20px;
+    padding-bottom: 30px;
     box-shadow: 0 3px 5px rgb(185, 185, 185);
     text-align: center;
-    font-size: 40px;
+    font-size: 60px;
 }
 
 .main-panel {
@@ -49,7 +53,7 @@ h3 {
 
 .gameboard {
     height: 100%;
-    width: 500px;
+    min-width: 500px;
     margin: 10px;
     display: grid;
     justify-self: left;
